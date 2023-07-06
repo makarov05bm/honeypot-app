@@ -6,7 +6,7 @@ export async function GET(request) {
     const headersList = headers()
     const ip = headersList.get('x-forwarded-for')
 
-    const response = await fetch(`https://ipapi.co/105.100.85.109/json`);
+    const response = await fetch(`https://ipapi.co/${ip}/json`);
     const loc = await response.json();
 
     await dbConnect()
