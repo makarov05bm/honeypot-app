@@ -1,9 +1,23 @@
+'use client'
+
 import styles from './page.module.css'
 
 export const revalidate = 0
 
 async function sendGuestData() {
-  const res = await fetch(`https://${process.env.VERCEL_URL}/api`)
+  const resIp = await fetch('https://api.myip.com')
+  const dataIp = await resIp.json()
+  const ip = dataIp.ip
+
+  const res = await fetch(`http://localhost:3000/api`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ip
+    })
+  })
 
   if (!res.ok) {
     throw new Error('Failed to send user data')
@@ -14,6 +28,7 @@ async function sendGuestData() {
 
 export default async function Home() {
   await sendGuestData()
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>

@@ -2,11 +2,10 @@ import { headers } from 'next/headers'
 import Guest from '../../../models/Guest'
 import dbConnect from '../../../lib/db'
 
-export async function GET(request) {
-    const headersList = headers()
-    const ip = headersList.get('x-real-ip')
+export async function POST(request) {
+    const data = await request.json()
 
-    console.log(ip)
+    const { ip } = data
 
     const response = await fetch(`https://ipapi.co/${ip}/json`);
     const loc = await response.json();
