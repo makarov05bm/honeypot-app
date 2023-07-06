@@ -1,7 +1,7 @@
 import styles from './page.module.css'
 
 async function sendGuestData() {
-  const res = await fetch(process.env.URL)
+  const res = await fetch("/api")
 
   if (!res.ok) {
     throw new Error('Failed to send user data')
