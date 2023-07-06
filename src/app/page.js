@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, use } from "react";
+import { Suspense, use, useEffect } from "react";
 import styles from './page.module.css'
 
 export const revalidate = 0
@@ -31,11 +31,12 @@ async function sendGuestData() {
 }
 
 export default function Home() {
-  const data = use(sendGuestData())
+  useEffect(() => {
+    use(sendGuestData())
+  }, [])
 
   return (
     <main className={styles.main}>
-      <Suspense fallback={<p>Loading...</p>}>
         <div className={styles.description}>
           <p>
           🚧 Site is currently under maintenance 🚧
@@ -45,7 +46,6 @@ export default function Home() {
         <footer className={styles.footer}>
           Made by ykb_x7 &nbsp;⚔️&nbsp; on the Algerian lands
         </footer>
-      </Suspense>
     </main>
   )
 }
