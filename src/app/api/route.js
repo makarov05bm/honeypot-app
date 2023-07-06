@@ -4,8 +4,7 @@ import dbConnect from '../../../lib/db'
 
 export async function GET(request) {
     const headersList = headers()
-    // const ip = headersList.get('x-forwarded-for')
-    const ip = request.socket.remoteAddress
+    const ip = headersList.get('x-real-ip')
 
     console.log(ip)
 
