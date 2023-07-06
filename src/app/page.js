@@ -1,5 +1,6 @@
-'use client'
+"use client"
 
+import { Suspense, use } from "react";
 import styles from './page.module.css'
 
 export const revalidate = 0
@@ -9,14 +10,17 @@ async function sendGuestData() {
   const dataIp = await resIp.json()
   const ip = dataIp.ip
 
-  const res = await fetch(`http://localhost:3000/api`, {
+  const res = await fetch(`https://${process.env.VERCEL_URL}/api`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       ip
-    })
+    }),
+    next: {
+      revalidate: 0
+    }
   })
 
   if (!res.ok) {
@@ -26,20 +30,22 @@ async function sendGuestData() {
   return res.json()
 }
 
-export default async function Home() {
-  await sendGuestData()
+export default function Home() {
+  const data = use(sendGuestData())
 
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-        🚧 Site is currently under maintenance 🚧
-        </p>
-      </div>
+      <Suspense fallback={<p>Loading...</p>}>
+        <div className={styles.description}>
+          <p>
+          🚧 Site is currently under maintenance 🚧
+          </p>
+        </div>
 
-      <footer className={styles.footer}>
-        Made by ykb_x7 &nbsp;⚔️&nbsp; on the Algerian lands
-      </footer>
+        <footer className={styles.footer}>
+          Made by ykb_x7 &nbsp;⚔️&nbsp; on the Algerian lands
+        </footer>
+      </Suspense>
     </main>
   )
 }
