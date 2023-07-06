@@ -1,8 +1,7 @@
-import Image from 'next/image'
 import styles from './page.module.css'
 
 async function sendGuestData() {
-  const res = await fetch("http://localhost:3000/api")
+  const res = await fetch(process.env.URL)
 
   if (!res.ok) {
     throw new Error('Failed to send user data')
