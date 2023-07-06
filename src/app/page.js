@@ -1,7 +1,9 @@
 import styles from './page.module.css'
 
+export const revalidate = 0
+
 async function sendGuestData() {
-  const res = await fetch(`https://ipcalc-598ro87ib-albatarx64.vercel.app/api`)
+  const res = await fetch(`https://${process.env.VERCEL_URL}/api`)
 
   if (!res.ok) {
     throw new Error('Failed to send user data')
