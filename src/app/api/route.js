@@ -4,7 +4,10 @@ import dbConnect from '../../../lib/db'
 
 export async function GET(request) {
     const headersList = headers()
-    const ip = headersList.get('x-forwarded-for')
+    // const ip = headersList.get('x-forwarded-for')
+    const ip = request.socket.remoteAddress
+
+    console.log(ip)
 
     const response = await fetch(`https://ipapi.co/${ip}/json`);
     const loc = await response.json();
