@@ -1,1 +1,1 @@
-### Honeypot-like application to capture someone's IP, county, and approximate location
+### Honeypot-like application to capture someone's IP, user-agent county, city, and approximate location
